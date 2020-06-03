@@ -80,20 +80,17 @@ Complex& Complex::operator+=(const Complex &right) {
 	return *this;
 }
 
-std::ostream& operator << (std::ostream& output, const Complex& object) {
-	if (object._im < 0)
-		output << std::setprecision(3) << std::fixed << object._re << " - " << -1 * object._im << "i\n";
-	else
-		output << std::setprecision(3) << std::fixed << object._re << " + " << object._im << "i\n";
+std::ostream& operator<<(std::ostream& output, const Complex& tmp) {
+	if (tmp._im < 0) {
+		output << std::setprecision(3) << std::fixed << tmp._re << " - " << -1 * tmp._im << "i\n";
+	} else {
+		output << std::setprecision(3) << std::fixed << tmp._re << " + " << tmp._im << "i\n";
+	}
 	return output;
 }
 
-std::istream& operator >> (std::istream& input, Complex& object) {
-	std::cout << "Real part of complex number:";
-	input >> object._re;
-	std::cout << '\n';
-	std::cout << "Imaginary part of complex number:";
-	input >> object._im;
-	std::cout << '\n';
+std::istream& operator>>(std::istream& input, Complex& tmp) {
+	input >> tmp._re;
+	input >> tmp._im;
 	return input;
 }
