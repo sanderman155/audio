@@ -22,5 +22,17 @@ int main() {
 	for (auto complex_number: vec_F) {
 		std::cout << "f" << pos++ << " = " << complex_number;
 	}
+	std::cout << "FastFourierTransform" << std::endl;
+	fftPrepare(vec_F);
+	fft(vec_F, 0);
+	pos = 0;
+	for (auto complex_number: vec_F) {
+		std::cout << "f" << pos++ << " = " << complex_number;
+	}
+	fft(vec_F, 1);
+	pos = 0;
+	for (auto complex_number: vec_F) {
+		std::cout << "f" << pos++ << " = " << complex_number;
+	}
 	return 0;
 }

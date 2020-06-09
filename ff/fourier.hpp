@@ -8,8 +8,8 @@ std::vector<Complex> f2s(std::vector<Complex> vec_f);
 
 std::vector<Complex> s2f(std::vector<Complex> vec_s);
 
-void FastFourierRec(std::vector<Complex> &vec_f);
+void fft(std::vector<Complex> &a, bool invert);
 
-void FastFourier(std::vector<Complex> &vec_f);
+void fftPrepare(std::vector <Complex> &a);
 
 #endif

@@ -271,19 +271,18 @@ std::vector<Segment> mask_compress(const std::vector<bool> &data) {
   return segments;
 }
 
-int save(std::vector<short> audio, std::vector<Segment> segments, WavHeader header, int i, int sd) {
+int save(std::vector<short> audio, std::vector<Segment> segments, WavHeader header, int i) {
     std::ofstream file;
-    file.open((std::to_string(i) + ".wav"), std::ios::binary);
-    std::cout << sd << std::endl;
-    sd *= 10;
-    int size = (segments[i].stop - segments[i].start) * sd;
+    unsigned int sampleRate = header.sampleRate;
+    file.open((std::to_string(i) + "segment.wav"), std::ios::binary);
+    int size = (segments[i].stop - segments[i].start) * sampleRate;
     std::cout << segments[i].stop << " " << segments[i].start << std::endl;
     WavHeader header_new = header;
     header_new.chunkSize = (2 * size + 44) - 8;
     header_new.subchunk2Size = 2 * size;
 
     std::vector<short> audio_segment(size);
-    for (int j = segments[i].start * 44100, k = 0; j < segments[i].stop * 44100; j++, k++) {
+    for (int j = segments[i].start * sampleRate, k = 0; j < segments[i].stop * sampleRate; j++, k++) {
         audio_segment[k] = audio[j];
     }
 
@@ -313,7 +312,7 @@ int main(int argc, char** argv) {
   std::vector<bool> vad_mask = get_vad_mask(segments_energy, vad_threshold);
   std::vector<Segment> segments = mask_compress(vad_mask);
   for (int i = 0; i < segments.size(); i++) {
-      save(audio, segments, header, i, segment_duration_samples);
+      save(audio, segments, header, i);
   }
   print_with_timeline(vad_mask, segment_duration, "sec", 10);
   print_with_colored_timeline(segments_energy, vad_mask, segment_duration, "sec", 10);

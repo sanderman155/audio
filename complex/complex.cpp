@@ -41,7 +41,7 @@ double Complex::phase() const {
 	}
 	return atan(_im/_re);
 }
-
+ 
 Complex Complex::operator+(Complex right) const {
 	Complex tmp(_re + right._re, _im + right._im);
 	return tmp;
@@ -69,6 +69,12 @@ Complex Complex::operator^(double alpha) const {
 	return obj;
 }
 
+Complex Complex::operator* (const Complex& right) const {
+	Complex tmp(_re * right.re() - _im * right.im(),
+				_re * right.im() + _im * right.re());
+	return tmp;
+}
+
 Complex& Complex::operator=(const Complex &right) {
 	_re = right._re;
 	_im = right._im;
@@ -79,6 +85,17 @@ Complex& Complex::operator+=(const Complex &right) {
 	(*this) = (*this) + right;
 	return *this;
 }
+
+Complex& Complex::operator*=(const Complex &right) {
+	(*this) = (*this) * right;
+	return *this;
+}
+
+Complex& Complex::operator/=(double right) {
+	(*this) = (*this) / right;
+	return *this;
+}
+
 
 std::ostream& operator<<(std::ostream& output, const Complex& tmp) {
 	if (tmp._im < 0) {
