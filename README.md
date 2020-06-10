@@ -17,7 +17,7 @@ This program saves sections of volume with the initially set parameter as separa
   bin/vad example.wav 0.1 0.01
   ```
  
-# Fast and sicrete fourier transform
+# Fast and discrete fourier transform
 	
 The Fourier Transform is a tool that breaks a waveform (a function or signal) into an alternate representation, characterized by sine and cosines. The Fourier Transform shows that any waveform can be re-written as the sum of sinusoidal functions. 
 
